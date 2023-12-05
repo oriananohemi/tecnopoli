@@ -1,0 +1,44 @@
+{
+  "tecnologia": [
+    {
+      "nombre": "Laptop Dell XPS 13",
+      "imagen": "link-a-la-imagen-1.jpg",
+      "precio": 4500000,
+      "descripcion": "La Dell XPS 13 es una laptop ultradelgada con una pantalla InfinityEdge, procesador Intel Core i7 y gran autonomía.",
+      "caracteristicas": {
+        "pantalla": "13.3 pulgadas",
+        "ram": "16GB",
+        "almacenamiento": "512GB SSD",
+        "sistema_operativo": "Windows 10"
+      },
+      "disponibles": 15,
+      "calificacion": 4.8
+    },
+    {
+      "nombre": "iPhone 13 Pro",
+      "imagen": "link-a-la-imagen-2.jpg",
+      "precio": 5900000,
+      "descripcion": "El iPhone 13 Pro ofrece una potente cámara triple, procesador A15 Bionic y una pantalla Super Retina XDR.",
+      "caracteristicas": {
+        "almacenamiento": "128GB",
+        "pantalla": "6.1 pulgadas",
+        "sistema_operativo": "iOS 15"
+      },
+      "disponibles": 25,
+      "calificacion": 4.9
+    },
+    {
+      "nombre": "Televisor Samsung QLED 55\"",
+      "imagen": "link-a-la-imagen-3.jpg",
+      "precio": 3800000,
+      "descripcion": "Una TV QLED de Samsung con resolución 4K, Quantum HDR y diseño sin bordes.",
+      "caracteristicas": {
+        "pantalla": "55 pulgadas",
+        "smart_tv": true,
+        "tecnologia": "Quantum Dot"
+      },
+      "disponibles": 10,
+      "calificacion": 4.7
+    }
+  ]
+}
