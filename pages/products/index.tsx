@@ -8,7 +8,7 @@ const Catalog = () => {
     const getProducts = async () => {
       try {
         const localStorageElements = localStorage.getItem("products");
-        const elements = JSON.parse(localStorageElements);
+        const elements = JSON.parse(localStorageElements || "");
 
         setProducts(elements);
       } catch (error) {

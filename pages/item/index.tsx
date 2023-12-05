@@ -14,10 +14,10 @@ const Item = () => {
     const getProducts = async () => {
       try {
         const localStorageElements = localStorage.getItem("products");
-        const elements = JSON.parse(localStorageElements);
+        const elements = JSON.parse(localStorageElements || "");
 
         const filteredElements = elements.filter(
-          (element) => element.id == searchQuery
+          (element: any) => element.id == searchQuery
         );
         setItem(filteredElements[0]);
       } catch (error) {
@@ -123,7 +123,7 @@ const Item = () => {
                   <h3 className="text-lg font-semibold mb-2">
                     Características Detalladas
                   </h3>
-                  {item.characteristics.map((characteristic) => (
+                  {item.characteristics.map((characteristic: any) => (
                     <p>{characteristic}</p>
                   ))}
                   <button
