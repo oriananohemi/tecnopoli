@@ -94,7 +94,7 @@ const Home = () => {
         Tendencias en tecnología
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map(({ id, name, image, description, price }) => (
+        {products.slice(0, 3).map(({ id, name, image, description, price }) => (
           <Link
             href={`/item?query=${id}`}
             key={id}
