@@ -15,13 +15,13 @@ const SearchResults = () => {
     const getProducts = async () => {
       try {
         const localStorageElements = localStorage.getItem("products");
-        const elements = JSON.parse(localStorageElements);
+        const elements = JSON.parse(localStorageElements || "");
         /* TBD */
         if (elements === undefined || elements === null) {
           setSearchResults([]);
         } else {
           const filteredElements = elements.filter(
-            (element) => element.id == searchQuery
+            (element: any) => element.id == searchQuery
           );
           setResults(elements);
           setSearchResults(filteredElements[0]);
