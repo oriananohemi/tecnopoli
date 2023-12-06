@@ -1,53 +1,31 @@
-import { useState, useEffect } from "react";
+import { useProducts } from "@tecnopoli/contexts/ProductsContext";
+import Card from "@tecnopoli/shared/components/card";
+import { FaCartArrowDown } from "react-icons/fa";
+import Router from "next/router";
 import Link from "next/link";
 
 const Catalog = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const localStorageElements = localStorage.getItem("products");
-        const elements = JSON.parse(localStorageElements || "");
-
-        setProducts(elements);
-      } catch (error) {
-        console.error("Error al obtener productos:", error);
-      }
-    };
-
-    getProducts();
-  }, []);
-
-  const addToCart = () => {
-    console.log(`Producto agregado al carrito`);
-  };
+  const products = useProducts();
 
   return (
-    <div>
-      <h1 className="text-center mt-20 text-2xl">Catálogo de productos</h1>
-      <div className="flex m-20 justify-between">
-        {products.map(({ id, name, image, description, price }) => (
-          <Link
-            href={`/item?query=${id}`}
-            key={id}
-            className="bg-blue-200 rounded-lg shadow-md overflow-hidden w-96"
-          >
-            <img src={image} alt={name} className="w-96 p-20 object-cover" />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-4">{name}</h3>
-              <p className="text-gray-600 mb-4">{description}</p>
-              <p className="text-primary font-bold mb-5 text-xl">${price}</p>
-              <button
-                onClick={() => addToCart()}
-                className="bg-blue-500 hover:bg-secondary text-white font-bold py-2 px-16 mx-auto rounded focus:outline-none focus:shadow-outline"
-              >
-                Agregar al carrito
-              </button>
-            </div>
-          </Link>
+    <div
+      className="bg-no-repeat h-screen pt-10"
+      style={{ backgroundImage: "url('background.png')" }}
+    >
+      <h1 className="text-primary text-center mt-20 text-3xl text-semibold">
+        Catálogo de productos
+      </h1>
+      <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {products.map((product) => (
+          <Card {...product} />
         ))}
       </div>
+      <Link
+        href="/cart"
+        className="fixed bottom-24 right-8 bg-blue-500 text-white w-10 h-10 p-3 rounded-full cursor-pointer shadow-lg"
+      >
+        <FaCartArrowDown />
+      </Link>
     </div>
   );
 };

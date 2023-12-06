@@ -1,43 +1,67 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { useCart } from "@tecnopoli/contexts/CartContext";
+import { useProducts } from "@tecnopoli/contexts/ProductsContext";
 
 const Cart = () => {
-  const cartItems = [
-    { id: 1, name: "Producto 1", price: 19.99, quantity: 2 },
-    { id: 2, name: "Producto 2", price: 29.99, quantity: 1 },
-    // ... Otros productos en el carrito
-  ];
+  const { cartItems, removeFromCart } = useCart();
+  const [results, setResults] = useState<any[]>([]);
+  const products = useProducts();
 
-  const getTotalPrice = () => {
-    return cartItems.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+  console.log("cartItems", cartItems);
+
+  const getProduct = () => {
+    return cartItems.map((item) => {
+      const productResults = products.find(
+        (product) => product.id === item.product
+      );
+      return {
+        ...productResults,
+        quantity: item.quantity,
+      };
+    });
+  };
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setResults(getProduct());
+    }
+  }, [products]);
+
+  const calcularTotal = () => {
+    let total = 0;
+
+    results.forEach((item) => {
+      const subtotalPorProducto = item.price * item.quantity;
+      total += subtotalPorProducto;
+    });
+
+    return total;
   };
 
   return (
-    <div className="container mx-auto my-8">
-      <h2 className="text-2xl font-bold mb-4">Carrito de Compras</h2>
-      {cartItems.map((item) => (
-        <article
-          key={item.id}
-          className="flex justify-between items-center border-b border-gray-300 py-2"
-        >
-          <div>
-            <p className="text-lg">{item.name}</p>
-            <p>Cantidad: {item.quantity}</p>
-          </div>
-          <p>${item.price * item.quantity}</p>
-        </article>
-      ))}
-      <div className="mt-4 flex justify-between font-bold">
-        <p>Total:</p>
-        <p>${getTotalPrice()}</p>
-      </div>
-      <div className="mt-8">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Continuar compra
-        </button>
-      </div>
+    <div>
+      <h1 className="text-primary text-center text-2xl m-10">
+        Carrito de Compras
+      </h1>
+      <ul>
+        {results.map((item, index) => (
+          <li
+            key={index}
+            className="flex shadow bg-gray-100 p-10 m-10 justify-between items-center"
+          >
+            <div className="flex">
+              <img src={item.image} alt={item.name} className="w-20 h-20" />
+              <div className="flex flex-col">
+                <p>{item.name}</p>
+                <p>Cantidad: {item.quantity}</p>
+                <p>Subtotal: {item.price * item.quantity}</p>
+              </div>
+            </div>
+            <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
+          </li>
+        ))}
+      </ul>
+      <p className="m-10 text-xl">Total del carrito: {calcularTotal()}</p>
     </div>
   );
 };

@@ -1,92 +1,52 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useProducts } from "@tecnopoli/contexts/ProductsContext";
+import { useRouter } from "next/router";
+import Card from "@tecnopoli/shared/components/card";
 
 const SearchResults = () => {
+  const products = useProducts();
+  const router = useRouter();
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [results, setResults] = useState<any[]>([]);
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("query");
-
-  const addToCart = () => {
-    console.log(`Producto agregado al carrito`);
-  };
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const localStorageElements = localStorage.getItem("products");
-        const elements = JSON.parse(localStorageElements || "");
-        /* TBD */
-        if (elements === undefined || elements === null) {
-          setSearchResults([]);
-        } else {
-          const filteredElements = elements.filter(
-            (element: any) => element.id == searchQuery
+    if (router.query.search && products.length > 0) {
+      const query = router.query.search;
+      if (query === "undefined") {
+        return setSearchResults([]);
+      } else {
+        const productResults = products.find((product) => {
+          console.log(product, product.name.includes(query));
+          return (
+            product?.name?.includes(query) ||
+            product?.description?.includes(query)
           );
-          setResults(elements);
-          setSearchResults(filteredElements[0]);
-        }
-      } catch (error) {
-        console.error("Error al obtener productos:", error);
+        });
+        setSearchResults(productResults);
       }
-    };
-
-    getProducts();
-  }, [searchQuery]);
+    }
+  }, [router.query.search, products]);
 
   return (
     <div className="container mx-auto my-8">
       <h1 className="text-2xl font-semibold mb-4">
-        Resultados de búsqueda para: {searchQuery}
+        Resultados de búsqueda para: {router.query.search}
       </h1>
       {searchResults && searchResults.length === 0 ? (
         <>
-          <p>No se encontraron resultados</p>
-          <p>Te recomendamos visitar tendencias</p>
-          {results.map(({ id, name, image, description, price }) => (
-            <div
-              key={id}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
-            >
-              <img
-                src={image}
-                alt={name}
-                className="w-full h-40 object-cover"
-              />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold mb-4">{name}</h3>
-                <p className="text-gray-600 mb-4">{description}</p>
-                <p className="text-primary font-bold mb-5 text-xl">${price}</p>
-                <button
-                  onClick={() => addToCart()}
-                  className="bg-blue-500 hover:bg-secondary text-white font-bold py-2 px-16 mx-auto rounded focus:outline-none focus:shadow-outline"
-                >
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          ))}
+          <p className="text-center text-primary text-2xl">
+            No se encontraron resultados
+          </p>
+          <p className="text-center text-primary text-2xl">
+            Te recomendamos otros productos
+          </p>
+          <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {products.map((product) => (
+              <Card {...product} />
+            ))}
+          </div>
         </>
       ) : (
-        searchResults.map(({ id, name, image, description, price }) => (
-          <div
-            key={id}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
-            <img src={image} alt={name} className="w-full h-40 object-cover" />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-4">{name}</h3>
-              <p className="text-gray-600 mb-4">{description}</p>
-              <p className="text-primary font-bold mb-5 text-xl">${price}</p>
-              <button
-                onClick={() => addToCart()}
-                className="bg-blue-500 hover:bg-secondary text-white font-bold py-2 px-16 mx-auto rounded focus:outline-none focus:shadow-outline"
-              >
-                Agregar al carrito
-              </button>
-            </div>
-          </div>
-        ))
+        searchResults.map((product) => <Card {...product} />)
       )}
     </div>
   );

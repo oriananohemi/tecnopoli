@@ -1,40 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { FaCartArrowDown } from "react-icons/fa";
+import { useProducts } from "@tecnopoli/contexts/ProductsContext";
 import { categories } from "@tecnopoli/utils/config/categories";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "@tecnopoli/firebase";
 import Router from "next/router";
 import Link from "next/link";
+import Card from "@tecnopoli/shared/components/card";
 
 const Home = () => {
-  const [products, setProducts] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
-
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const querySnapshot = await getDocs(
-          collection(db, "products", "OXkz33QGNvOPXvg6gouZ", "tecnology")
-        );
-        let newValue = [] as any;
-        querySnapshot.forEach((doc) => {
-          return newValue.push(doc.data());
-        });
-        setProducts(newValue);
-        localStorage.setItem("products", JSON.stringify(newValue));
-      } catch (error) {
-        console.error("Error al obtener productos:", error);
-      }
-    };
-
-    getProducts();
-  }, []);
+  const products = useProducts();
 
   const handleSearch = () => {
     setTimeout(() => {
-      Router.push(`/search-results?query=${searchQuery}`);
-      localStorage.setItem("searchQuery", searchQuery);
+      Router.push(`/search-results?search=${searchQuery}`);
     }, 1000);
   };
 
@@ -42,12 +21,11 @@ const Home = () => {
     setShowAdvancedOptions(!showAdvancedOptions);
   };
 
-  const addToCart = () => {
-    console.log(`Producto agregado al carrito`);
-  };
-
   return (
-    <div className="h-screen w-view container mx-auto my-8">
+    <div
+      className="bg-no-repeat pt-10 h-screen w-view container mx-auto my-8"
+      style={{ backgroundImage: "url('background.png')" }}
+    >
       <div className="container mx-auto my-8">
         <div className="flex items-center">
           <input
@@ -86,47 +64,34 @@ const Home = () => {
           </Link>
         ))}
       </div>
-      <div className="hidden md:flex space-x-2 h-1/2">
-        <img src="banner.jpeg" className="mx-auto mt-20 w-full" />
-        <img src="banner-2.jpeg" className="mx-auto mt-20 w-full" />
+      <div className="hidden md:flex space-x-2 h-2/3">
+        <img
+          src="banner.jpeg"
+          className="mx-auto mt-20 w-full hidden md:flex"
+        />
+        <img src="store.jpeg" className="mx-auto mt-20 w-full hidden lg:flex" />
       </div>
       <h2 className="font-mono text-2xl font-medium mt-20 mb-6 text-primary">
         Tendencias en tecnología
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.slice(0, 3).map(({ id, name, image, description, price }) => (
-          <Link
-            href={`/item?query=${id}`}
-            key={id}
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-          >
-            <img src={image} alt={name} className="w-full h-40 object-cover" />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-4">{name}</h3>
-              <p className="text-gray-600 mb-4">{description}</p>
-              <p className="text-primary font-bold mb-5 text-xl">${price}</p>
-              <button
-                onClick={() => addToCart()}
-                className="bg-blue-500 hover:bg-secondary text-white font-bold py-2 px-16 mx-auto rounded focus:outline-none focus:shadow-outline"
-              >
-                Agregar al carrito
-              </button>
-            </div>
-          </Link>
+      <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {products.slice(0, 3).map((product) => (
+          <Card {...product} />
         ))}
       </div>
-      <div className="relative mt-8 p-4 bg-gray-200">
+      <div className="hidden md:block relative mt-8 p-4 bg-gray-200">
         <div className="absolute bottom-20 left-24 md:left-52 text-center md:text-start">
           <p className="text-2xl text-white font-mono">¡Proximamente!</p>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-28 rounded mt-2">
-            Ver más
-          </button>
         </div>
-        <img src="banner-4.webp" className="w-4/5 mx-auto" />
+        <img
+          src="banner-4.webp"
+          className="mx-auto"
+          style={{ width: "60em" }}
+        />
       </div>
       <Link
         href="/cart"
-        className="fixed bottom-24 right-8 bg-blue-500 text-white p-4 rounded-full cursor-pointer shadow-lg"
+        className="fixed bottom-24 right-8 bg-blue-500 text-white w-10 h-10 p-3 rounded-full cursor-pointer shadow-lg"
       >
         <FaCartArrowDown />
       </Link>

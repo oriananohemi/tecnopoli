@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Router from "next/router";
+import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
 import { IoMdArrowDropdown } from "react-icons/io";
 
@@ -24,7 +25,9 @@ export default function Header() {
 
   return (
     <div className="shadow flex justify-between items-center bg-blue-200 p-4">
-      <img src="logo.png" alt="Logo" className="h-8" />
+      <Link href="/home">
+        <img src="logo.png" alt="Logo" className="h-8" />
+      </Link>
       {userLogged && (
         <div className="relative">
           <button

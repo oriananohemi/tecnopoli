@@ -58,7 +58,7 @@ const SignUp = () => {
       style={{ backgroundImage: "url('background.png')" }}
     >
       <div
-        className="hidden md:block bg-no-repeat bg-cover md:w-1/3 md:shadow h-5/6"
+        className="hidden md:block bg-no-repeat bg-cover md:w-1/3 md:shadow h-4/6"
         style={{ backgroundImage: "url('background-store.avif')" }}
       >
         <img
@@ -68,7 +68,7 @@ const SignUp = () => {
           style={{ borderRadius: "30px" }}
         />
       </div>
-      <div className="md:w-1/3 md:h-5/6 bg-gray-200 bg-opacity-25 md:shadow">
+      <div className="md:w-1/3 md:h-4/6 bg-gray-200 bg-opacity-25 md:shadow">
         <form className="rounded px-8 pt-4 md:pt-16 mb-4">
           <h2 className="m-10 text-center text-4xl font-semibold leading-9 tracking-tight text-primary">
             Regístrate
@@ -131,16 +131,17 @@ const SignUp = () => {
             <button
               onClick={handleRegister}
               type="button"
-              className="flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 mt-10 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               Registrarse
             </button>
           </div>
           <button
-            className="ml-40 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none focus:shadow-outline"
+            className="flex items-center mx-auto mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none focus:shadow-outline"
             onClick={handleGoogleSignIn}
           >
-            <FaGoogle />
+            Registraste con Google
+            <FaGoogle className="ml-4" />
           </button>
           <div className="mt-10 text-center text-sm">
             <Link

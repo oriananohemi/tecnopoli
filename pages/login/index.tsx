@@ -142,10 +142,11 @@ const Login = () => {
             </button>
           </div>
           <button
-            className="ml-40 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none focus:shadow-outline"
+            className="flex items-center mx-auto mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none focus:shadow-outline"
             onClick={handleGoogleLogin}
           >
-            <FaGoogle />
+            Inicia sesión con Google
+            <FaGoogle className="ml-4" />
           </button>
           <div className="mt-10 text-center text-sm">
             <Link
