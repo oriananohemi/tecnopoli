@@ -17,8 +17,8 @@ const SearchResults = () => {
       } else {
         const filteredProducts = products.filter((product: any) => {
           return (
-            product?.name?.toLowerCase().includes(query.toLowerCase()) ||
-            product?.description?.toLowerCase().includes(query.toLowerCase())
+            product?.name?.toLowerCase().includes(query) ||
+            product?.description?.toLowerCase().includes(query)
           );
         });
         setSearchResults(filteredProducts);
