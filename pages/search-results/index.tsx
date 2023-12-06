@@ -14,7 +14,7 @@ const SearchResults = () => {
       if (query === "undefined") {
         return setSearchResults([]);
       } else {
-        const productResults = products.find((product) => {
+        const productResults = products.find((product: any) => {
           console.log(product, product.name.includes(query));
           return (
             product?.name?.includes(query) ||
@@ -40,7 +40,7 @@ const SearchResults = () => {
             Te recomendamos otros productos
           </p>
           <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
+            {products.map((product: any) => (
               <Card {...product} />
             ))}
           </div>

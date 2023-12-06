@@ -75,7 +75,7 @@ const Home = () => {
         Tendencias en tecnología
       </h2>
       <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {products.slice(0, 3).map((product) => (
+        {products.slice(0, 3).map((product: any) => (
           <Card {...product} />
         ))}
       </div>

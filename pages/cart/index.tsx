@@ -10,9 +10,9 @@ const Cart = () => {
   console.log("cartItems", cartItems);
 
   const getProduct = () => {
-    return cartItems.map((item) => {
+    return cartItems.map((item: any) => {
       const productResults = products.find(
-        (product) => product.id === item.product
+        (product: any) => product.id === item.product
       );
       return {
         ...productResults,

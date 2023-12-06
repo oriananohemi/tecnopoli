@@ -16,8 +16,8 @@ const Item = () => {
 
   useEffect(() => {
     if (router.query.id && products.length > 0) {
-      const id = parseInt(router.query.id);
-      const item = products.find((product) => product.id === id);
+      const id = parseInt(router.query.id as string);
+      const item = products.find((product: any) => product.id === id);
       setItem(item);
     }
   }, [router.query.id, products]);
@@ -123,7 +123,7 @@ const Item = () => {
                   {Object.entries(item.characteristics).map(([key, value]) => (
                     <>
                       <p>{key}:</p>
-                      <p>{value}</p>
+                      <p>{value as any}</p>
                     </>
                   ))}
                   <button

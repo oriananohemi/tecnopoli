@@ -16,7 +16,7 @@ const Catalog = () => {
         Catálogo de productos
       </h1>
       <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
+        {products.map((product: any) => (
           <Card {...product} />
         ))}
       </div>

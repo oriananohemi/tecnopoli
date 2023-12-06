@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useCart } from "@tecnopoli/contexts/CartContext";
 
-const Card = ({ id, image, name, description, price }) => {
+const Card = ({ id, image, name, description, price }: any) => {
   const { addToCart } = useCart();
 
   const handleCart = (item: any) => {
