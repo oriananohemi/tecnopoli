@@ -9,19 +9,19 @@ const SearchResults = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
 
   useEffect(() => {
-    if (router.query.search && products.length > 0) {
+    if (router.query.search !== undefined && products.length > 0) {
       const query = router.query.search;
+
       if (query === "undefined") {
-        return setSearchResults([]);
+        setSearchResults([]);
       } else {
-        const productResults = products.find((product: any) => {
-          console.log(product, product.name.includes(query));
+        const filteredProducts = products.filter((product: any) => {
           return (
-            product?.name?.includes(query) ||
-            product?.description?.includes(query)
+            product?.name?.toLowerCase().includes(query.toLowerCase()) ||
+            product?.description?.toLowerCase().includes(query.toLowerCase())
           );
         });
-        setSearchResults(productResults);
+        setSearchResults(filteredProducts);
       }
     }
   }, [router.query.search, products]);
@@ -41,12 +41,13 @@ const SearchResults = () => {
           </p>
           <div className="m-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {products.map((product: any) => (
-              <Card {...product} />
+              <Card key={product.id} {...product} />
             ))}
           </div>
         </>
       ) : (
-        searchResults.map((product) => <Card {...product} />)
+        searchResults &&
+        searchResults.map((product) => <Card key={product.id} {...product} />)
       )}
     </div>
   );
