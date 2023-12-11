@@ -1,3 +1,21 @@
+#Tecnopoli
+
+Project created for the TPS course. Frontend in Next js and backend in Firebase.
+
+<a href="https://www.figma.com/file/JNMEk5oOe5q5vgOJechMjx/TSP?type=design&node-id=0-1&mode=design&t=afDzc0wBr1iEhsuB-0">Figma</a>
+<a href="https://tecnopoli.vercel.app/">App</a>
+
+<img src="https://github.com/oriananohemi/tecnopoli/assets/49885209/17dab7eb-470a-46d0-918e-3f0b874553d6" width=700 />
+
+<img src="https://github.com/oriananohemi/tecnopoli/assets/49885209/d99234f2-3fab-45f0-b7d3-dc29c404e9d0" width=700 />
+
+<img src="https://github.com/oriananohemi/tecnopoli/assets/49885209/71268cb4-7596-4ede-a75b-8ecdb49e549a" width=700 />
+
+<img src="https://github.com/oriananohemi/tecnopoli/assets/49885209/cd4dbfde-f166-4dce-9a24-9902d4d37b79" width=700 />
+
+<img src="https://github.com/oriananohemi/tecnopoli/assets/49885209/e6ae27ae-e062-42ec-90c1-2fc524f2f636" width=800 />
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
